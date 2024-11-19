@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import Header from "./components/UI/Header";
+import Footer from "./components/UI/Footer";
+import Page from './components/UI/page';
+import Login from './components/Login';
+import CrearPoliza from './components/CrearPoliza';
+import ListarPoliza from './components/ListarPolizas';
+import BuscarPoliza from './components/BuscarPolizaxID';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [currentView, setCurrentView] = useState('home');
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const handleLoginSuccess = () => {
+        setIsLoggedIn(true);
+    };
+
+    const handleMenuClick = (view) => {
+        setCurrentView(view);
+    };
+
+    return (
+        <>
+            {isLoggedIn ? (
+                <>
+                    <Header onMenuClick={handleMenuClick} />
+                    <Page>
+                        {currentView === 'crear-poliza' && <CrearPoliza />}
+                        {currentView === 'listar-polizas' && <ListarPoliza />}
+                        {currentView === 'buscar-poliza' && <BuscarPoliza />}
+                        {/* Puedes añadir más condiciones para otros componentes */}
+                    </Page>
+                    <Footer />
+                </>
+            ) : (
+                <Login onLoginSuccess={handleLoginSuccess} />
+            )}
+        </>
+    );
 }
 
-export default App
+export default App;
