@@ -7,37 +7,40 @@ import Login from './components/Login';
 import CrearPoliza from './components/CrearPoliza';
 import ListarPoliza from './components/ListarPolizas';
 import BuscarPoliza from './components/BuscarPolizaxID';
+import Home from './components/Home'
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [currentView, setCurrentView] = useState('home');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentView, setCurrentView] = useState('home');
 
-    const handleLoginSuccess = () => {
-        setIsLoggedIn(true);
-    };
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+  };
 
-    const handleMenuClick = (view) => {
-        setCurrentView(view);
-    };
+  const handleMenuClick = (view) => {
 
-    return (
+    setCurrentView(view);
+  };
+
+  return (
+    <>
+      {isLoggedIn ? (
         <>
-            {isLoggedIn ? (
-                <>
-                    <Header onMenuClick={handleMenuClick} />
-                    <Page>
-                        {currentView === 'crear-poliza' && <CrearPoliza />}
-                        {currentView === 'listar-polizas' && <ListarPoliza />}
-                        {currentView === 'buscar-poliza' && <BuscarPoliza />}
-                        {/* Puedes añadir más condiciones para otros componentes */}
-                    </Page>
-                    <Footer />
-                </>
-            ) : (
-                <Login onLoginSuccess={handleLoginSuccess} />
-            )}
+          <Header onMenuClick={handleMenuClick} />
+          <Page>
+            {currentView === 'Home' && <Home />}
+            {currentView === 'crear-poliza' && <CrearPoliza />}
+            {currentView === 'listar-polizas' && <ListarPoliza />}
+            {currentView === 'buscar-poliza' && <BuscarPoliza />}
+            {/* Puedes añadir más condiciones para otros componentes */}
+          </Page>
+          <Footer />
         </>
-    );
+      ) : (
+        <Login onLoginSuccess={handleLoginSuccess} />
+      )}
+    </>
+  );
 }
 
 export default App;

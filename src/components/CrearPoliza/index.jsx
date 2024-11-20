@@ -9,8 +9,9 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import { CrearPolizaMovil, CrearPolizaVehicular, CrearPolizaInmobiliaria } from '../../Api/scripts.jsx';
-
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -69,6 +70,9 @@ export default function CrearPoliza() {
         valorInmueble: ''
     });
     const [polizas, setPolizas] = React.useState([]);
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const [snackbarMessage, setSnackbarMessage] = React.useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = React.useState('success');
 
     const handleChange = (event) => {
         setTipoSeguro(event.target.value);
@@ -102,23 +106,31 @@ export default function CrearPoliza() {
         debugger
         const nuevaPoliza = { ...formValues, tipoSeguro };
         let polizaCreada;
-        switch (tipoSeguro) {
-            case 'movil':
-                polizaCreada = await CrearPolizaMovil(formValues);
-                break;
-            case 'vehicular':
-                polizaCreada = await CrearPolizaVehicular(formValues);
-                break;
-            case 'inmobiliario':
-                polizaCreada = await CrearPolizaInmobiliaria(formValues);
-                break;
-            default:
-                console.log('Tipo de seguro no reconocido');
+        try {
+            switch (tipoSeguro) {
+                case 'movil':
+                    polizaCreada = await CrearPolizaMovil(formValues);
+                    break;
+                case 'vehicular':
+                    polizaCreada = await CrearPolizaVehicular(formValues);
+                    break;
+                case 'inmobiliario':
+                    polizaCreada = await CrearPolizaInmobiliaria(formValues);
+                    break;
+                default:
+                    throw new Error('Tipo de seguro no reconocido');
+            }
+            setPolizas([...polizas, nuevaPoliza]);
+            handleClear();
+            setSnackbarMessage('Póliza registrada correctamente');
+            setSnackbarSeverity('success');
+        } catch (error) {
+            setSnackbarMessage('Error al registrar la póliza');
+            setSnackbarSeverity('error');
+        } finally {
+            setOpenSnackbar(true);
         }
-        setPolizas([...polizas, nuevaPoliza]);
-        handleClear();
-        console.log(polizas); 
-        
+
     };
 
     const renderFormFields = () => {
@@ -137,49 +149,61 @@ export default function CrearPoliza() {
                     />
                 </Item>
             </Grid>
+
+
         ));
     };
 
     return (
-        <div>
-            <h1 style={{ display: 'flex', justifyContent: 'center', mt: 2 }}>Registrar Póliza</h1>
-            <h2 style={{ display: 'flex', justifyContent: 'left', mt: 2 , marginBottom: '10px',marginTop: '10px'}}>Elije el tipo de poliza</h2>
-            <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={1}>
-                    <Grid item xs={4}>
-                        <Item>
-                            <FormControl fullWidth>
-                                <InputLabel id="tipo-seguro-label">Tipo de Seguro</InputLabel>
-                                <Select
-                                    labelId="tipo-seguro-label"
-                                    id="tipo-seguro"
-                                    value={tipoSeguro}
-                                    label="Tipo de Seguro"
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem value="movil">Seguro Móvil</MenuItem>
-                                    <MenuItem value="vehicular">Seguro Vehicular</MenuItem>
-                                    <MenuItem value="inmobiliario">Seguro Inmobiliario</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Item>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <h3 style={{ display: 'flex', justifyContent: 'left', mt: 2 , marginBottom: '10px',marginTop: '10px'}}>Ingresa los datos para el registro de tu poliza {tipoSeguro}</h3>
-                    </Grid>
-
-                    {renderFormFields()}
-                    {tipoSeguro && (
-                        <Grid item xs={12}>
-                            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-                                <Button variant="contained" color="primary" onClick={handleRegister}>Registrar</Button>
-                                <Button variant="outlined" color="secondary" onClick={handleClear}>Limpiar</Button>
-                            </Box>
-                        </Grid>
-                    )}
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Item><h1>Registrar Póliza</h1></Item>
                 </Grid>
-            </Box>
-        </div>
 
+                <Grid item xs={4}>
+                    <h2>Ingresa el tipo de seguro:</h2>
+                    <Item>
+                        <FormControl fullWidth>
+                            <InputLabel>Tipo de Seguro</InputLabel>
+                            <Select
+                                value={tipoSeguro}
+                                onChange={handleChange}
+                            >
+                                <MenuItem value="movil">Seguro Móvil</MenuItem>
+                                <MenuItem value="vehicular">Seguro Vehicular</MenuItem>
+                                <MenuItem value="inmobiliario">Seguro Inmobiliario</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Item>
+
+                </Grid>
+                {tipoSeguro && (
+                    <>
+                        <Grid item xs={12}>
+                            <Item><h2>Ingresa los datos para el registro de tu poliza {tipoSeguro}</h2></Item>
+                        </Grid>
+                        {renderFormFields()}
+                        <Grid item xs={12}>
+                            <Button variant="contained" color="primary" onClick={handleRegister}>
+                                Registrar
+                            </Button>
+                            <Button variant="outlined" color="secondary" onClick={handleClear} style={{ marginLeft: '10px' }}>
+                                Limpiar
+                            </Button>
+                        </Grid>
+                    </>
+                )}
+                <Snackbar
+                    open={openSnackbar}
+                    autoHideDuration={6000}
+                    onClose={() => setOpenSnackbar(false)}
+                >
+                    <Alert onClose={() => setOpenSnackbar(false)} severity={snackbarSeverity} sx={{ width: '100%' }}>
+                        {snackbarMessage}
+                    </Alert>
+                </Snackbar>
+            </Grid>
+        </Box>
     );
 }

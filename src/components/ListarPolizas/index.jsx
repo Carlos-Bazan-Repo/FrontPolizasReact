@@ -9,6 +9,8 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import { styled } from '@mui/system';
 import { ListarPolizasMovil, ListarPolizasVehiculares, ListarPolizasInmobiliarias } from '../../Api/scripts.jsx';
 
@@ -25,6 +27,17 @@ const ButtonGroupStyled = styled(ButtonGroup)({
 const TableContainerStyled = styled(TableContainer)({
     marginTop: '20px',
 });
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    ...theme.applyStyles('dark', {
+        backgroundColor: '#1A2027',
+    }),
+}));
 
 const columnsMoviles = [
     { id: 'id', label: 'ID', minWidth: 50 },
@@ -101,8 +114,9 @@ export default function ListarPolizas() {
     return (
         <div>
             <h1 style={{ display: 'flex', justifyContent: 'center', mt: 1 }}>Tablas de Pólizas</h1>
-            <Paper>
             <h3 style={{ display: 'flex', justifyContent: 'left', mt: 1 }}>Elije que tipo de Poliza que deseas buscar:</h3>
+            <Paper>
+            
                 <ButtonContainer>
                     
                     <ButtonGroupStyled variant="contained" aria-label="outlined primary button group">
