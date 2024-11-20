@@ -148,18 +148,18 @@ export default function BuscarPoliza() {
         try {
             switch (tipoSeguro) {
                 case 'movil':
-                    polizaActualizada = await ActualizarPolizasMovil(idSeguro);
+                    polizaActualizada = await ActualizarPolizasMovil(idSeguro,formValues);
                     break;
                 case 'vehicular':
-                    polizaActualizada = await ActualizarPolizasVehicular(idSeguro);
+                    polizaActualizada = await ActualizarPolizasVehicular(idSeguro,formValues);
                     break;
                 case 'inmobiliario':
-                    polizaActualizada = await ActualizarPolizasInmobiliaria(idSeguro);
+                    polizaActualizada = await ActualizarPolizasInmobiliaria(idSeguro,formValues);
                     break;
                 default:
                     console.log('Tipo de seguro no reconocido');
             }
-            setFormValues("");
+            setFormValues(polizaActualizada);
             setSnackbarMessage('Modificacion realizada correctamente');
             setSnackbarSeverity('success');
             
@@ -173,18 +173,17 @@ export default function BuscarPoliza() {
 
     const handleEliminar = async () => {
         let polizaActualizada;
-        const polizaEditada = { ...formValues, tipoSeguro };
         handleClear();
         try {
             switch (tipoSeguro) {
                 case 'movil':
-                    polizaActualizada = await EliminarPolizasMovil(idSeguro,formValues);
+                    polizaActualizada = await EliminarPolizasMovil(idSeguro);
                     break;
                 case 'vehicular':
-                    polizaActualizada = await EliminarPolizasVehicular(idSeguro,formValues);
+                    polizaActualizada = await EliminarPolizasVehicular(idSeguro);
                     break;
                 case 'inmobiliario':
-                    polizaActualizada = await EliminarPolizasInmobiliaria(idSeguro,formValues);
+                    polizaActualizada = await EliminarPolizasInmobiliaria(idSeguro);
                     break;
                 default:
                     console.log('Tipo de seguro no reconocido');

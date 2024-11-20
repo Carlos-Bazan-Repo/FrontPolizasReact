@@ -146,32 +146,30 @@ export const ActualizarPolizasMovil = async (id,payload) => {
     }
 }
 
-export const ActualizarPolizasVehicular = async (id) => {
+export const ActualizarPolizasVehicular = async (id,payload) => {
     debugger
     try {
         console.log("buscando poliza movil comenzando");
         const url = `http://localhost:8080/poliza/movil?id=${id}`;
-        const respuesta = await axios.get(url);
+        const respuesta = await axios.put(url, payload);
         const data= respuesta.data
-        const found = data.find(item => item.id === parseInt(id, 10));
         console.log("buscando poliza movil finalizado");
-        return found;
+        return data;
     } catch (error) {
         console.error("Error creando poliza movil:", error);
         throw error;
     }
 }
 
-export const ActualizarPolizasInmobiliaria = async (id) => {
+export const ActualizarPolizasInmobiliaria = async (id,payload) => {
     debugger
     try {
         console.log("buscando poliza movil comenzando");
         const url = `http://localhost:8080/poliza/movil/${id}`;
-        const respuesta = await axios.get(url);
+        const respuesta = await axios.put(url, payload);
         const data= respuesta.data
-        const found = data.find(item => item.id === parseInt(id, 10));
         console.log("buscando poliza movil finalizado");
-        return found;
+        return data;
     } catch (error) {
         console.error("Error creando poliza movil:", error);
         throw error;
@@ -198,7 +196,7 @@ export const EliminarPolizasVehicular = async (id) => {
     debugger
     try {
         console.log("buscando poliza movil comenzando");
-        const url = `http://localhost:8080/poliza/movil/${id}`;
+        const url = `http://localhost:8080/poliza/vehicular/${id}`;
         const respuesta = await axios.delete(url);
         const data= "Eliminado"
         console.log("buscando poliza movil finalizado");
@@ -213,7 +211,7 @@ export const EliminarPolizasInmobiliaria = async (id) => {
     debugger
     try {
         console.log("buscando poliza movil comenzando");
-        const url = `http://localhost:8080/poliza/movil/${id}`;
+        const url = `http://localhost:8080/poliza/inmobiliaria/${id}`;
         const respuesta = await axios.delete(url);
         const data= "Eliminado"
         console.log("buscando poliza movil finalizado");
