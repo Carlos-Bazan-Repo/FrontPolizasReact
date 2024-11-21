@@ -83,15 +83,14 @@ export const ListarPolizasInmobiliarias = async () => {
 
 //GET x ID
 export const BuscarPolizasMovil = async (id) => {
-    debugger
+    
     try {
         console.log("buscando poliza movil comenzando");
-        const url = `http://localhost:8080/poliza/movil?id=${id}`;
+        const url = `http://localhost:8080/poliza/movil/${id}`;
         const respuesta = await axios.get(url);
-        const data= respuesta.data
-        const found = data.find(item => item.id === parseInt(id, 10));
+        const data = respuesta.data
         console.log("buscando poliza movil finalizado");
-        return found;
+        return data;
     } catch (error) {
         console.error("Error creando poliza movil:", error);
         throw error;
@@ -99,15 +98,14 @@ export const BuscarPolizasMovil = async (id) => {
 }
 
 export const BuscarPolizasVehicular = async (id) => {
-    debugger
+    
     try {
         console.log("buscando poliza movil comenzando");
-        const url = `http://localhost:8080/poliza/vehicular?id=${id}`;
+        const url = `http://localhost:8080/poliza/vehicular/${id}`;
         const respuesta = await axios.get(url);
-        const data= respuesta.data
-        const found = data.find(item => item.id === parseInt(id, 10));
+        const data = respuesta.data
         console.log("buscando poliza movil finalizado");
-        return found;
+        return data;
     } catch (error) {
         console.error("Error creando poliza movil:", error);
         throw error;
@@ -115,15 +113,14 @@ export const BuscarPolizasVehicular = async (id) => {
 }
 
 export const BuscarPolizasInmobiliaria = async (id) => {
-    debugger
+    
     try {
         console.log("buscando poliza movil comenzando");
-        const url = `http://localhost:8080/poliza/inmobiliaria?id=${id}`;
+        const url = `http://localhost:8080/poliza/inmobiliaria/${id}`;
         const respuesta = await axios.get(url);
-        const data= respuesta.data
-        const found = data.find(item => item.id === parseInt(id, 10));
+        const data = respuesta.data
         console.log("buscando poliza movil finalizado");
-        return found;
+        return data;
     } catch (error) {
         console.error("Error creando poliza movil:", error);
         throw error;
@@ -131,13 +128,13 @@ export const BuscarPolizasInmobiliaria = async (id) => {
 }
 
 //PUT x ID
-export const ActualizarPolizasMovil = async (id,payload) => {
-    debugger
+export const ActualizarPolizasMovil = async (id, payload) => {
+    
     try {
         console.log("buscando poliza movil comenzando");
         const url = `http://localhost:8080/poliza/movil/${id}`;
         const respuesta = await axios.put(url, payload);
-        const data= respuesta.data
+        const data = respuesta.data
         console.log("buscando poliza movil finalizado");
         return data;
     } catch (error) {
@@ -146,13 +143,13 @@ export const ActualizarPolizasMovil = async (id,payload) => {
     }
 }
 
-export const ActualizarPolizasVehicular = async (id,payload) => {
-    debugger
+export const ActualizarPolizasVehicular = async (id, payload) => {
+    
     try {
         console.log("buscando poliza movil comenzando");
-        const url = `http://localhost:8080/poliza/movil?id=${id}`;
+        const url = `http://localhost:8080/poliza/vehicular/${id}`;
         const respuesta = await axios.put(url, payload);
-        const data= respuesta.data
+        const data = respuesta.data
         console.log("buscando poliza movil finalizado");
         return data;
     } catch (error) {
@@ -161,13 +158,13 @@ export const ActualizarPolizasVehicular = async (id,payload) => {
     }
 }
 
-export const ActualizarPolizasInmobiliaria = async (id,payload) => {
-    debugger
+export const ActualizarPolizasInmobiliaria = async (id, payload) => {
+    
     try {
         console.log("buscando poliza movil comenzando");
-        const url = `http://localhost:8080/poliza/movil/${id}`;
+        const url = `http://localhost:8080/poliza/inmobiliaria/${id}`;
         const respuesta = await axios.put(url, payload);
-        const data= respuesta.data
+        const data = respuesta.data
         console.log("buscando poliza movil finalizado");
         return data;
     } catch (error) {
@@ -178,12 +175,12 @@ export const ActualizarPolizasInmobiliaria = async (id,payload) => {
 
 //DELETE X ID
 export const EliminarPolizasMovil = async (id) => {
-    debugger
+    
     try {
         console.log("buscando poliza movil comenzando");
         const url = `http://localhost:8080/poliza/movil/${id}`;
         const respuesta = await axios.delete(url);
-        const data= "Eliminado"
+        const data = "Eliminado"
         console.log("buscando poliza movil finalizado");
         return data;
     } catch (error) {
@@ -193,12 +190,12 @@ export const EliminarPolizasMovil = async (id) => {
 }
 
 export const EliminarPolizasVehicular = async (id) => {
-    debugger
+    
     try {
         console.log("buscando poliza movil comenzando");
         const url = `http://localhost:8080/poliza/vehicular/${id}`;
         const respuesta = await axios.delete(url);
-        const data= "Eliminado"
+        const data = "Eliminado"
         console.log("buscando poliza movil finalizado");
         return data;
     } catch (error) {
@@ -208,12 +205,12 @@ export const EliminarPolizasVehicular = async (id) => {
 }
 
 export const EliminarPolizasInmobiliaria = async (id) => {
-    debugger
+    
     try {
         console.log("buscando poliza movil comenzando");
         const url = `http://localhost:8080/poliza/inmobiliaria/${id}`;
         const respuesta = await axios.delete(url);
-        const data= "Eliminado"
+        const data = "Eliminado"
         console.log("buscando poliza movil finalizado");
         return data;
     } catch (error) {

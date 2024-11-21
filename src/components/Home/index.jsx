@@ -3,11 +3,7 @@ import React, { useState } from "react";
 import Diversity2OutlinedIcon from '@mui/icons-material/Diversity2Outlined';
 
 export default function Home() {
-    const [isOpen, setIsOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
 
     return (
         <Container style={{ backgroundColor: '#e0f7fa', minHeight: '100vh', padding: '20px' }}>

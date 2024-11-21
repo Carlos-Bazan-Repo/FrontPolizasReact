@@ -124,8 +124,8 @@ export default function BuscarPoliza() {
                 default:
                     console.log('Tipo de seguro no reconocido');
             }
-            if (polizaCreada === undefined) {
-                setSnackbarMessage('No se encontró ninguna póliza.');
+            if (polizaCreada === undefined | polizaCreada === null) {
+                setSnackbarMessage(`No se encontró ninguna póliza con el id ${idSeguro}.`);
                 setSnackbarSeverity('warning');
             } else {
                 setFormValues(polizaCreada);

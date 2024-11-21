@@ -34,7 +34,7 @@ export default function Header({ onMenuClick }) {
                 <AppBar position="static">
                     <Toolbar>
                         <Diversity2OutlinedIcon fontSize="large" />
-                        <h1 style={{ display: 'flex', justifyContent: 'center', mt: 2, fontSize: '50px', color: "#102C54" }} >{nombreEmpresa}</h1>
+                        <h1 style={{ display: 'flex', justifyContent: 'center', mt: 2, fontSize: '50px', color: "white" }} >{nombreEmpresa}</h1>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center', color: 'navy' }}>
                             <label style={{ display: 'flex', justifyContent: 'right', color: 'white' }}>Menu</label>
                         </Typography>
